@@ -22,14 +22,14 @@ class App extends Component {
     });
 
     if (!response.ok) {
-      console.log('Error!')
+      return console.log('Error!')
     }
 
-    // console.log('response:', await response.json());
+    const user = await response.json();
 
-    window.sessionStorage.setItem('login', email);
-    this.setState({ userEmail: email });
-    history.push(`/dashboard/c8617717-61c8-455e-aa33-3710bffab2b9`); // TODO: Load id from user info
+    window.sessionStorage.setItem('login', user);
+    this.setState({ user });
+    history.push(`/dashboard/${user.store}`);
   };
 
   render() {
