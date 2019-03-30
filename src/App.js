@@ -8,12 +8,15 @@ class App extends Component {
     userEmail: ''
   };
 
-  handleLogin = (userEmail) => this.setState({ userEmail });
+    handleLogin = (userEmail) => { 
+        window.sessionStorage.setItem('login', userEmail); 
+        this.setState({ userEmail });
+    }
 
   render() {
     return (
       <div className="App">
-        {this.state.userEmail === ''
+        {window.sessionStorage.getItem('login') == null
           ? <Login onLogin={this.handleLogin} />
           : <Dashboard />
         }
