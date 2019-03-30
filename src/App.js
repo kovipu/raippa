@@ -12,7 +12,7 @@ class App extends Component {
   };
 
   componentDidMount() {
-    const user = window.sessionStorage.getItem('user');
+    const user = JSON.parse(window.sessionStorage.getItem('user'));
     this.setState({ user });
   }
 
@@ -32,7 +32,7 @@ class App extends Component {
 
     const user = await response.json();
 
-    window.sessionStorage.setItem('user', user);
+    window.sessionStorage.setItem('user', JSON.stringify(user));
     this.setState({ user });
     history.push(`/dashboard/${user.store}`);
   };
@@ -43,7 +43,9 @@ class App extends Component {
       <div className="App">
         <Router>
           <Route path="/" exact render={props => (
-              <Login onLogin={(email, password) => this.handleLogin(email, password, props.history)} />
+            isAuthenticated
+              ? <Redirect to={`/dashboard/${this.state.user.store}`} />
+              : <Login onLogin={(email, password) => this.handleLogin(email, password, props.history)} />
           )} />
           <PrivateRoute path="/dashboard/:guid" exact component={Dashboard} isAuthenticated={isAuthenticated} />
         </Router>
