@@ -8,10 +8,10 @@ class App extends Component {
     userEmail: ''
   };
 
-    handleLogin = (userEmail) => { 
-        window.sessionStorage.setItem('login', userEmail); 
-        this.setState({ userEmail });
-    }
+  handleLogin = (userEmail) => {
+      window.sessionStorage.setItem('login', userEmail);
+      this.setState({ userEmail });
+  };
 
   render() {
     return (
