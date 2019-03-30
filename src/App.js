@@ -18,7 +18,7 @@ class App extends Component {
 
   render() {
     const isAuthenticated = window.sessionStorage.getItem('login') != null;
-    console.log('Is authenticated', isAuthenticated);
+
     return (
       <div className="App">
         <Router>
