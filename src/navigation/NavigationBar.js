@@ -76,7 +76,9 @@ const Store = styled.div`
   text-align: center;
 `;
 
-const Icon = styled.img`
+const Icon = styled.div`
+  background-image: url("${props => props.src}");
+  background-size: cover;
   height: 50px;
   width: 50px;
   border-radius: 25px;
