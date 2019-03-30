@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
+import theme from '../theme';
 
 const EventPoints = ({value}) => {
   if (value > 0) {
@@ -69,7 +70,7 @@ const EventPointsGood = styled.div`
   height: 1.8rem;
   padding: 4px;
   border-radius: 50%;
-  background: green;
+  background: #fe7e40;
   align-items: center;
   flex-shrink: 0;
   justify-content: center;
@@ -83,7 +84,7 @@ const EventPointsBad = styled.div`
   height: 1.8rem;
   padding: 4px;
   border-radius: 50%;
-  background: red;
+  background: #777777;
   align-items: center;
   flex-shrink: 0;
   justify-content: center;
