@@ -6,6 +6,9 @@ import EventFlow from './EventFlow';
 import Bodium from './Bodium';
 let socket;
 
+// TODO: Move to env variable
+const RMARKET_API_URL = 'https://rmarket-backend.herokuapp.com';
+
 class Dashboard extends Component {
 
   constructor(props) {
@@ -15,23 +18,31 @@ class Dashboard extends Component {
       employees: [],
       events: []
     };
+  }
 
-    this.loadCustomers(0)
+  componentDidMount() {
+    const { match: { params }, history } = this.props;
+
+    socket = openSocket(`${RMARKET_API_URL}/${params.shopIdx}`);
+
+    fetch(`${RMARKET_API_URL}/employees/${params.shopIdx}`)
+      .then(res => {
+        if (!res.ok) {
+          history.push('/');
+        }
+
+        return res.json();
+      })
       .then((data) => {
         this.setState({
           employees: data
         });
+
+        this.initSocketListeners();
       });
   }
 
-  loadCustomers = (shopId) => {
-    return fetch(`https://rmarket-backend.herokuapp.com/employees/${shopId}`)
-      .then(res => res.json());
-  }
-
-  componentDidMount() {
-    socket = openSocket('https://rmarket-backend.herokuapp.com/0'); // TODO: Replace with actual shopId
-
+  initSocketListeners = () => {
     socket.on('refresh', (data) => {
       console.log(data);
 
@@ -63,7 +74,7 @@ class Dashboard extends Component {
       <DashboardWrapper>
         <ViewContent>
           <PageTitle>Tilastot</PageTitle>
-          <Bodium/>
+          <Bodium />
           <FlipMove>
             {employees.map((e, i) => (
               <RankingWrapper key={e.idx}>
