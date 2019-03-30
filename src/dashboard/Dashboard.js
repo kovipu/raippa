@@ -81,7 +81,7 @@ class Dashboard extends Component {
               {restOfTheEmployees.map((e, i) => (
                 <RankingWrapper key={e.idx}>
                   <RankingIndex>{i + 4}</RankingIndex>
-                  <RankingImage src={e.icon} />
+                  <RankingImage icon={e.icon} />
                   <RankingName>{e.firstName} {e.lastName}</RankingName>
                   <RankingPoints>{e.points}</RankingPoints>
                 </RankingWrapper>
@@ -141,11 +141,16 @@ const RankingIndex = styled.div`
   text-align: center;
 `;
 
-const RankingImage = styled.img`
+const RankingImage = styled.div`
   margin-right: 1rem;
   border-radius: 50%;
-  height: 40px;
-  width: 40px;
+  height: 48px;
+  width: 48px;
+  flex-shrink: 0;
+  border: 2px solid #ffaf79;
+  background-color: #ffffff;
+  background-image: url("${props => props.icon}");
+  background-size: cover;
 `;
 
 const RankingName = styled.div`
