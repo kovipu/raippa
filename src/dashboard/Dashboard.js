@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import openSocket from 'socket.io-client';
 import FlipMove from 'react-flip-move';
+import EventFlow from './EventFlow';
 let socket;
 
 class Dashboard extends Component {
@@ -10,7 +11,8 @@ class Dashboard extends Component {
     super(props);
 
     this.state = {
-      employees: []
+      employees: [],
+      events: []
     };
 
     this.loadCustomers(0)
@@ -28,7 +30,7 @@ class Dashboard extends Component {
 
   componentDidMount() {
     socket = openSocket('https://rmarket-backend.herokuapp.com/0'); // TODO: Replace with actual shopId
-    
+
     socket.on('refresh', (data) => {
       console.log(data);
 
@@ -40,8 +42,11 @@ class Dashboard extends Component {
         }
       });
 
+      const events = this.state.events.concat(data)
+
       this.setState({
-        employees: d.sort((e1, e2) => e2.points - e1.points)
+        employees: d.sort((e1, e2) => e2.points - e1.points),
+        events: events.sort((e1, e2) => new Date(e2.dateTime) - new Date(e1.dateTime)),
       });
     });
   }
@@ -51,25 +56,43 @@ class Dashboard extends Component {
   }
 
   render() {
-    const { employees } = this.state;
+    const { employees, events } = this.state;
 
     return (
-      <div className="Dashboard">
-        <PageTitle>Worker rankings</PageTitle>
-        <FlipMove>
-          {employees.map((e, i) => (
-            <RankingWrapper key={e.idx}>
-              <RankingIndex>{i + 1}</RankingIndex>
-              <RankingImage src={e.icon} />
-              <RankingName>{e.firstName} {e.lastName}</RankingName>
-              <RankingPoints>{e.points}</RankingPoints>
-            </RankingWrapper>
-          ))}
-        </FlipMove>
-      </div>
+      <DashboardWrapper>
+        <ViewContent>
+          <PageTitle>Tilastot</PageTitle>
+          <FlipMove>
+            {employees.map((e, i) => (
+              <RankingWrapper key={e.idx}>
+                <RankingIndex>{i + 1}</RankingIndex>
+                <RankingImage src={e.icon} />
+                <RankingName>{e.firstName} {e.lastName}</RankingName>
+                <RankingPoints>{e.points}</RankingPoints>
+              </RankingWrapper>
+            ))}
+          </FlipMove>
+        </ViewContent>
+        <Sidebar>
+          <EventFlow events={events} />
+        </Sidebar>
+      </DashboardWrapper>
     );
   }
 }
+
+const DashboardWrapper = styled.div`
+  display: flex;
+`;
+
+const ViewContent = styled.div`
+  width: 100%;
+`;
+
+const Sidebar = styled.div`
+  width: 33%;
+  max-width: 640px;
+`;
 
 const PageTitle = styled.h2`
   padding: .9rem 1.5rem;
