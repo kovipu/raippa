@@ -4,7 +4,6 @@ import { PrivateRoute } from './router';
 import Dashboard from './dashboard/Dashboard';
 import Login from './login/Login';
 import './App.css';
-import NavigationBar from "./navigation/NavigationBar";
 
 class App extends Component {
   state = {
@@ -28,10 +27,12 @@ class App extends Component {
     });
 
     if (!response.ok) {
+      this.setState({ error: 'Virheellinen sähköposti tai salasana!' });
       return console.log('Error!')
     }
 
     const user = await response.json();
+    this.setState({ error: null });
 
     window.sessionStorage.setItem('user', JSON.stringify(user));
     this.setState({ user });
@@ -46,7 +47,8 @@ class App extends Component {
           <Route path="/" exact render={props => (
             isAuthenticated
               ? <Redirect to={`/dashboard/${this.state.user.store}`} />
-              : <Login onLogin={(email, password) => this.handleLogin(email, password, props.history)} />
+              : <Login onLogin={(email, password) => this.handleLogin(email, password, props.history)}
+                       error={this.state.error}/>
           )} />
           <PrivateRoute path="/dashboard/:guid" exact component={props => (
             <Dashboard {...props} user={this.state.user} />
