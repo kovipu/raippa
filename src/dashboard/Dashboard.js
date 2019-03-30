@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import openSocket from 'socket.io-client';
 import FlipMove from 'react-flip-move';
+import Bodium from './Bodium';
 let socket;
 
 class Dashboard extends Component {
@@ -28,7 +29,7 @@ class Dashboard extends Component {
 
   componentDidMount() {
     socket = openSocket('https://rmarket-backend.herokuapp.com/0'); // TODO: Replace with actual shopId
-    
+
     socket.on('refresh', (data) => {
       console.log(data);
 
@@ -56,6 +57,7 @@ class Dashboard extends Component {
     return (
       <div className="Dashboard">
         <PageTitle>Worker rankings</PageTitle>
+        <Bodium />
         <FlipMove>
           {employees.map((e, i) => (
             <RankingWrapper key={e.idx}>
