@@ -119,7 +119,7 @@ const LoginButton = styled.button`
   width: 100%;
   font-size: 1.1rem;
   font-weight: bold;
-  background-color: ${theme.color.contrast};
+  background-color: ${theme.color.gradientStart};
   border-radius: 25px;
   border: none;
   outline: none;

@@ -70,16 +70,17 @@ class Dashboard extends Component {
 
   render() {
     const { employees, events } = this.state;
-
+    const [first, second, third, ...restOfTheEmployees]=employees;
+    
     return (
       <DashboardWrapper>
         <ViewContent>
           <PageTitle>Tilastot</PageTitle>
-          <Bodium />
+          <Bodium first={first} second={second} third={third} />
           <FlipMove>
-            {employees.map((e, i) => (
+            {restOfTheEmployees.map((e, i) => (
               <RankingWrapper key={e.idx}>
-                <RankingIndex>{i + 1}</RankingIndex>
+                <RankingIndex>{i + 4}</RankingIndex>
                 <RankingImage src={e.icon} />
                 <RankingName>{e.firstName} {e.lastName}</RankingName>
                 <RankingPoints>{e.points}</RankingPoints>

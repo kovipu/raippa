@@ -1,26 +1,26 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const BodiumView = (props) => {
+const BodiumView = ({ first, second, third }) => {
   return (
-    <BodiumWrapper>
-      <Bodium>
-        <Banner src="/flag2.png"></Banner>
-        <Circle />
-      </Bodium>
-      <Bodium offset="90px">
-        <Banner src="/flag2.png"></Banner>
-        <Circle />
-      </Bodium>
-      <Bodium>
-        <Banner src="/flag2.png"></Banner>
-        <Circle />
-      </Bodium>
-    </BodiumWrapper>
+    <BodiumsWrapper>
+      <Bodium user={second} />
+      <Bodium user={first} offset="90px"/>
+      <Bodium user={third} />
+    </BodiumsWrapper>
   );
 };
 
-const BodiumWrapper = styled.div`
+const Bodium = ({ user, offset }) => (
+  <BodiumWrapper offset={offset}>
+    <Banner>
+      {user && user.firstName }
+    </Banner>
+  <Circle icon={user && user.icon}/>
+</BodiumWrapper>
+)
+
+const BodiumsWrapper = styled.div`
   padding: 30px;
   text-align: center;
   width: 100%;
@@ -28,7 +28,7 @@ const BodiumWrapper = styled.div`
   justify-content: center;
 `;
 
-const Bodium = styled.div`
+const BodiumWrapper = styled.div`
   width: 200px;
   text-align: center;
   display: flex;
@@ -39,18 +39,24 @@ const Bodium = styled.div`
 `;
 
 
-const Banner = styled.img`
+const Banner = styled.div`
   width: 200px;
-  height: 50px;
-  z-index: 2
+  height: 40px;
+  z-index: 2;
+  background-image: url("/flag2.png");
+  background-position: center bottom;
+  background-size: contain;
+  background-repeat: no-repeat;
 `;
 
 const Circle = styled.div`
   width: 120px;
   height: 120px;
   border-radius: 60px;
-  border: 2px solid #ffaf79;
+  border: 3px solid #ffaf79;
   background-color: #ffffff;
+  background-image: url("${props => props.icon}");
+  background-size: cover;
   float: left;
   z-index; 1;
   margin-top: -144px;
