@@ -5,6 +5,7 @@ import FlipMove from 'react-flip-move';
 import EventFlow from './../common/EventFlow';
 import Bodium from './../common/Bodium';
 import NavigationBar from "../navigation/NavigationBar";
+import fireIcon from '../fire.svg';
 let socket;
 
 // TODO: Move to env variable
@@ -17,7 +18,8 @@ class Dashboard extends Component {
 
     this.state = {
       employees: [],
-      events: []
+      events: [],
+      user: { "idx": 104, "workEmail": "jesse.rauha@r-market.zorg", "icon": "https://scontent-sjc3-1.cdninstagram.com/vp/d8e151a83dcea0e2f8a522e939cb7501/5D38BBB2/t51.2885-19/s320x320/37040022_224335601554897_1517153809552375808_n.jpg?_nc_ht=scontent-sjc3-1.cdninstagram.com", "firstName": "Jesse", "lastName": "Rauha", "store": "dfc10f06-bf92-43c0-6464-62c1b52fc71e", "employedSince": "2016-02-09T21:25:230Z", "isManager": true, "points": 164 }
     };
   }
 
@@ -65,12 +67,28 @@ class Dashboard extends Component {
     });
   }
 
+  firePerson = (idx) => {
+    return fetch(`${RMARKET_API_URL}/employees/${idx}`, {
+      method: 'delete'
+    })
+    .then(res => {
+      if (res.ok) {
+        console.log('Employee was fired succesfully.');
+        this.setState({
+          employees: this.state.employees.filter(e => e.idx !== idx),
+        });
+        return;
+      }
+      console.log('Error occured while firing user.');
+    });
+  }
+
   componentWillUnmount() {
     socket.disconnect();
   }
 
   render() {
-    const { employees, events } = this.state;
+    const { employees, events, user } = this.state;
     const [first, second, third, ...restOfTheEmployees]=employees;
 
     return (
@@ -87,6 +105,7 @@ class Dashboard extends Component {
                     <RankingImage icon={e.icon} />
                     <RankingName>{e.firstName} {e.lastName}</RankingName>
                     <RankingPoints>{e.points}</RankingPoints>
+                    {user.isManager ? <FireButton title="Erota työntekijä." onClick={() => this.firePerson(e.idx)}><img src={fireIcon} /></FireButton> : <div />}
                   </RankingWrapper>
                 ))}
               </FlipMove>
@@ -173,5 +192,27 @@ const RankingPoints = styled.div`
   white-space: nowrap;
   font-size: 1.25rem;
 `;
+
+const FireButton = styled.div`
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 4px;
+  margin-left: 1rem;
+
+  img {
+    color: inherit;
+  }
+
+  :hover {
+    color: red;
+    background: whitesmoke;
+  }
+`
 
 export default Dashboard;
