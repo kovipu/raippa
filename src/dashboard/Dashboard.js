@@ -5,6 +5,7 @@ import FlipMove from 'react-flip-move';
 import EventFlow from './../common/EventFlow';
 import Bodium from './../common/Bodium';
 import NavigationBar from "../navigation/NavigationBar";
+import theme from '../theme';
 let socket;
 
 // TODO: Move to env variable
@@ -71,11 +72,11 @@ class Dashboard extends Component {
 
   render() {
     const { employees, events } = this.state;
-    const [first, second, third, ...restOfTheEmployees]=employees;
+    const [first, second, third, ...restOfTheEmployees] = employees;
 
     return (
       <ViewWrapper>
-        <NavigationBar userIcon={this.props.userIcon}/>
+        <NavigationBar user={this.props.user}/>
         <DashboardWrapper>
           <ViewContentWrapper>
             <ViewContent>
@@ -124,10 +125,15 @@ const ViewContent = styled.div`
 `;
 
 const Sidebar = styled.div`
+  display: none;
   width: 33%;
   max-width: 640px;
   overflow: auto;
   background-color: white;
+  
+  ${theme.breakpoint.md} {
+    display: block;
+  }
 `;
 
 const PageTitle = styled.h2`
