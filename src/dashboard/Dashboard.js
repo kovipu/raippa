@@ -36,7 +36,7 @@ class Dashboard extends Component {
       console.log(data);
 
       const d = this.state.employees.map(e => {
-        if (e.idx === data.employeeIdx) {
+        if (e.idx === data.employee.idx) {
           return { ...e, points: data.points };
         } else {
           return e;
@@ -85,15 +85,19 @@ class Dashboard extends Component {
 
 const DashboardWrapper = styled.div`
   display: flex;
+  height: 100vh;
+  overflow: hidden;
 `;
 
 const ViewContent = styled.div`
   width: 100%;
+  overflow: auto;
 `;
 
 const Sidebar = styled.div`
   width: 33%;
   max-width: 640px;
+  overflow: auto;
 `;
 
 const PageTitle = styled.h2`
