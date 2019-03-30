@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import openSocket from 'socket.io-client';
 import FlipMove from 'react-flip-move';
-import EventFlow from './EventFlow';
-import Bodium from './Bodium';
+import EventFlow from './../common/EventFlow';
+import Bodium from './../common/Bodium';
 let socket;
 
 // TODO: Move to env variable
