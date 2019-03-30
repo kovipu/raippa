@@ -49,6 +49,10 @@ const Banner = styled.div`
   background-position: center bottom;
   background-size: contain;
   background-repeat: no-repeat;
+  color: white;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); 
+
 `;
 
 const Circle = styled.div`
