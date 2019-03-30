@@ -48,7 +48,9 @@ class App extends Component {
               ? <Redirect to={`/dashboard/${this.state.user.store}`} />
               : <Login onLogin={(email, password) => this.handleLogin(email, password, props.history)} />
           )} />
-          <PrivateRoute path="/dashboard/:guid" exact component={Dashboard} isAuthenticated={isAuthenticated} />
+          <PrivateRoute path="/dashboard/:guid" exact component={props => (
+            <Dashboard {...props} user={this.state.user} />
+          )} isAuthenticated={isAuthenticated} />
         </Router>
       </div>
     );
