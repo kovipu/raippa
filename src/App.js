@@ -12,7 +12,7 @@ class App extends Component {
   };
 
   handleLogin = async (email, password, history) => {
-    const body = JSON.stringify({ email, password });
+    const body = JSON.stringify({ workEmail: email, password });
     const response = await fetch ('https://rmarket-backend.herokuapp.com/login', {
       method: 'POST',
       body,

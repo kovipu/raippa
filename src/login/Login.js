@@ -12,6 +12,7 @@ class Login extends Component {
   handleKeyPress = ev => {
     if (ev.key === 'Enter') {
       const { email, password } = this.state;
+      console.log(email, password)
       this.props.onLogin(email, password);
     }
   };
@@ -27,14 +28,14 @@ class Login extends Component {
             <Input type="text"
                    name="email"
                    placeholder="Sähköpostiosoite"
-                   onChange={email => this.setState({ email })}
+                   onChange={ev => this.setState({ email: ev.target.value })}
                    onKeyPress={this.handleKeyPress} />
             <Input type="password"
                    name="password"
                    placeholder="Salasana"
-                   onChange={password => this.setState({ password })}
+                   onChange={ev => this.setState({ password: ev.target.value })}
                    onKeyPress={this.handleKeyPress} />
-             <LoginButton onClick={() => this.props.onLogin(this.state.email)}>
+             <LoginButton onClick={() => this.props.onLogin(this.state.email, this.state.password)}>
                KIRJAUDU
              </LoginButton>
           </LoginFormWrapper>
