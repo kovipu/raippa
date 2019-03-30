@@ -4,6 +4,7 @@ import openSocket from 'socket.io-client';
 import FlipMove from 'react-flip-move';
 import EventFlow from './../common/EventFlow';
 import Bodium from './../common/Bodium';
+import NavigationBar from "../navigation/NavigationBar";
 let socket;
 
 // TODO: Move to env variable
@@ -73,29 +74,34 @@ class Dashboard extends Component {
     const [first, second, third, ...restOfTheEmployees]=employees;
 
     return (
-      <DashboardWrapper>
-        <ViewContentWrapper>
-          <ViewContent>
-            <Bodium first={first} second={second} third={third} />
-            <FlipMove>
-              {restOfTheEmployees.map((e, i) => (
-                <RankingWrapper key={e.idx}>
-                  <RankingIndex>{i + 4}</RankingIndex>
-                  <RankingImage icon={e.icon} />
-                  <RankingName>{e.firstName} {e.lastName}</RankingName>
-                  <RankingPoints>{e.points}</RankingPoints>
-                </RankingWrapper>
-              ))}
-            </FlipMove>
-          </ViewContent>
-        </ViewContentWrapper>
-        <Sidebar>
-          <EventFlow events={events} />
-        </Sidebar>
-      </DashboardWrapper>
+      <ViewWrapper>
+        <NavigationBar/>
+        <DashboardWrapper>
+          <ViewContentWrapper>
+            <ViewContent>
+              <Bodium first={first} second={second} third={third} />
+              <FlipMove>
+                {restOfTheEmployees.map((e, i) => (
+                  <RankingWrapper key={e.idx}>
+                    <RankingIndex>{i + 4}</RankingIndex>
+                    <RankingImage icon={e.icon} />
+                    <RankingName>{e.firstName} {e.lastName}</RankingName>
+                    <RankingPoints>{e.points}</RankingPoints>
+                  </RankingWrapper>
+                ))}
+              </FlipMove>
+            </ViewContent>
+          </ViewContentWrapper>
+          <Sidebar>
+            <EventFlow events={events} />
+          </Sidebar>
+        </DashboardWrapper>
+      </ViewWrapper>
     );
   }
 }
+
+const ViewWrapper = styled.div``;
 
 const DashboardWrapper = styled.div`
   display: flex;

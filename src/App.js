@@ -4,6 +4,7 @@ import { PrivateRoute } from './router';
 import Dashboard from './dashboard/Dashboard';
 import Login from './login/Login';
 import './App.css';
+import NavigationBar from "./navigation/NavigationBar";
 
 class App extends Component {
   state = {
