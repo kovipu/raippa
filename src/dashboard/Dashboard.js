@@ -213,6 +213,7 @@ const FireButton = styled.div`
 
   img {
     color: inherit;
+    width: 100%;
   }
 
   :hover {
