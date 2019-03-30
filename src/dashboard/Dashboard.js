@@ -19,8 +19,7 @@ class Dashboard extends Component {
 
     this.state = {
       employees: [],
-      events: [],
-      user: { "idx": 104, "workEmail": "jesse.rauha@r-market.zorg", "icon": "https://scontent-sjc3-1.cdninstagram.com/vp/d8e151a83dcea0e2f8a522e939cb7501/5D38BBB2/t51.2885-19/s320x320/37040022_224335601554897_1517153809552375808_n.jpg?_nc_ht=scontent-sjc3-1.cdninstagram.com", "firstName": "Jesse", "lastName": "Rauha", "store": "dfc10f06-bf92-43c0-6464-62c1b52fc71e", "employedSince": "2016-02-09T21:25:230Z", "isManager": true, "points": 164 }
+      events: []
     };
   }
 
@@ -89,7 +88,8 @@ class Dashboard extends Component {
   }
 
   render() {
-    const { employees, events, user } = this.state;
+    const { user } = this.props;
+    const { employees, events } = this.state;
     const [first, second, third, ...restOfTheEmployees]=employees;
 
     return (
