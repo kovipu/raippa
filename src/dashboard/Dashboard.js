@@ -71,23 +71,24 @@ class Dashboard extends Component {
   render() {
     const { employees, events } = this.state;
     const [first, second, third, ...restOfTheEmployees]=employees;
-    
+
     return (
       <DashboardWrapper>
-        <ViewContent>
-          <PageTitle>Tilastot</PageTitle>
-          <Bodium first={first} second={second} third={third} />
-          <FlipMove>
-            {restOfTheEmployees.map((e, i) => (
-              <RankingWrapper key={e.idx}>
-                <RankingIndex>{i + 4}</RankingIndex>
-                <RankingImage src={e.icon} />
-                <RankingName>{e.firstName} {e.lastName}</RankingName>
-                <RankingPoints>{e.points}</RankingPoints>
-              </RankingWrapper>
-            ))}
-          </FlipMove>
-        </ViewContent>
+        <ViewContentWrapper>
+          <ViewContent>
+            <Bodium first={first} second={second} third={third} />
+            <FlipMove>
+              {restOfTheEmployees.map((e, i) => (
+                <RankingWrapper key={e.idx}>
+                  <RankingIndex>{i + 4}</RankingIndex>
+                  <RankingImage src={e.icon} />
+                  <RankingName>{e.firstName} {e.lastName}</RankingName>
+                  <RankingPoints>{e.points}</RankingPoints>
+                </RankingWrapper>
+              ))}
+            </FlipMove>
+          </ViewContent>
+        </ViewContentWrapper>
         <Sidebar>
           <EventFlow events={events} />
         </Sidebar>
@@ -102,15 +103,21 @@ const DashboardWrapper = styled.div`
   overflow: hidden;
 `;
 
-const ViewContent = styled.div`
+const ViewContentWrapper = styled.div`
   width: 100%;
   overflow: auto;
+`;
+
+const ViewContent = styled.div`
+  max-width: 840px;
+  margin: 0 auto;
 `;
 
 const Sidebar = styled.div`
   width: 33%;
   max-width: 640px;
   overflow: auto;
+  background-color: white;
 `;
 
 const PageTitle = styled.h2`

@@ -1,15 +1,21 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import { PrivateRoute } from './router';
+import NavigationBar from './navigation/NavigationBar';
 import Dashboard from './dashboard/Dashboard';
 import Login from './login/Login';
 import './App.css';
 
 class App extends Component {
   state = {
-    userEmail: '',
+    user: null,
     error: null
   };
+
+  componentDidMount() {
+    const user = window.sessionStorage.getItem('user');
+    this.setState({ user });
+  }
 
   handleLogin = async (email, password, history) => {
     const body = JSON.stringify({ workEmail: email, password });
@@ -27,19 +33,18 @@ class App extends Component {
 
     const user = await response.json();
 
-    window.sessionStorage.setItem('login', user);
+    window.sessionStorage.setItem('user', user);
     this.setState({ user });
     history.push(`/dashboard/${user.store}`);
   };
 
   render() {
-    const isAuthenticated = window.sessionStorage.getItem('login') != null;
-
+    const isAuthenticated = !!this.state.user;
     return (
       <div className="App">
         <Router>
           <Route path="/" exact render={props => (
-            <Login onLogin={(email, password) => this.handleLogin(email, password, props.history)} />
+              <Login onLogin={(email, password) => this.handleLogin(email, password, props.history)} />
           )} />
           <PrivateRoute path="/dashboard/:guid" exact component={Dashboard} isAuthenticated={isAuthenticated} />
         </Router>

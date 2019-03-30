@@ -24,6 +24,8 @@ const BodiumsWrapper = styled.div`
   padding: 30px;
   text-align: center;
   width: 100%;
+  height: 180px;
+  margin-top: 100px;
   display: flex;
   justify-content: center;
 `;
