@@ -13,7 +13,7 @@ class App extends Component {
   handleLogin = (userEmail, history) => {
     window.sessionStorage.setItem('login', userEmail);
     this.setState({ userEmail });
-    history.push(`/dashboard/0`); // TODO: Load id from user info
+    history.push(`/dashboard/c8617717-61c8-455e-aa33-3710bffab2b9`); // TODO: Load id from user info
   };
 
   render() {
@@ -25,7 +25,7 @@ class App extends Component {
           <Route path="/" exact render={props => (
             <Login onLogin={email => this.handleLogin(email, props.history)} />
           )} />
-          <PrivateRoute path="/dashboard/:shopIdx" exact component={Dashboard} isAuthenticated={isAuthenticated} />
+          <PrivateRoute path="/dashboard/:guid" exact component={Dashboard} isAuthenticated={isAuthenticated} />
         </Router>
       </div>
     );

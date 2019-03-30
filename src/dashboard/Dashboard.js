@@ -23,9 +23,9 @@ class Dashboard extends Component {
   componentDidMount() {
     const { match: { params }, history } = this.props;
 
-    socket = openSocket(`${RMARKET_API_URL}/${params.shopIdx}`);
+    socket = openSocket(`${RMARKET_API_URL}/${params.guid}`);
 
-    fetch(`${RMARKET_API_URL}/employees/${params.shopIdx}`)
+    fetch(`${RMARKET_API_URL}/stores/${params.guid}/employees`)
       .then(res => {
         if (!res.ok) {
           history.push('/');
