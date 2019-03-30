@@ -22,13 +22,14 @@ class App extends Component {
     });
 
     if (!response.ok) {
-      return console.log('Error!')
+      console.log('Error!')
     }
 
-    console.log('response:', await response.json());
+    // console.log('response:', await response.json());
+
     window.sessionStorage.setItem('login', email);
     this.setState({ userEmail: email });
-    history.push('/');
+    history.push(`/dashboard/c8617717-61c8-455e-aa33-3710bffab2b9`); // TODO: Load id from user info
   };
 
   render() {
@@ -40,7 +41,7 @@ class App extends Component {
           <Route path="/" exact render={props => (
             <Login onLogin={(email, password) => this.handleLogin(email, password, props.history)} />
           )} />
-          <PrivateRoute path="/dashboard/:shopIdx" exact component={Dashboard} isAuthenticated={isAuthenticated} />
+          <PrivateRoute path="/dashboard/:guid" exact component={Dashboard} isAuthenticated={isAuthenticated} />
         </Router>
       </div>
     );
