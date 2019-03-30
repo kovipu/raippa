@@ -5,6 +5,7 @@ import FlipMove from 'react-flip-move';
 import EventFlow from './../common/EventFlow';
 import Bodium from './../common/Bodium';
 import NavigationBar from "../navigation/NavigationBar";
+import theme from '../theme';
 let socket;
 
 // TODO: Move to env variable
@@ -124,10 +125,15 @@ const ViewContent = styled.div`
 `;
 
 const Sidebar = styled.div`
+  display: none;
   width: 33%;
   max-width: 640px;
   overflow: auto;
   background-color: white;
+  
+  ${theme.breakpoint.md} {
+    display: block;
+  }
 `;
 
 const PageTitle = styled.h2`
