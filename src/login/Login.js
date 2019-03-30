@@ -12,7 +12,6 @@ class Login extends Component {
   handleKeyPress = ev => {
     if (ev.key === 'Enter') {
       const { email, password } = this.state;
-      console.log(email, password)
       this.props.onLogin(email, password);
     }
   };
@@ -24,7 +23,8 @@ class Login extends Component {
           <Logo src="/r-market.png" />
 
           <LoginFormWrapper>
-            <h1>WORKHARDER</h1>
+            <h1>Raippa</h1>
+            <strong>{this.props.error}</strong>
             <Input type="text"
                    name="email"
                    placeholder="Sähköpostiosoite"
@@ -73,8 +73,8 @@ const LoginBoxWrapper = styled.div`
   ${theme.breakpoint.sm} {
     border-radius: 25px;
     flex-direction: row;
-    min-width: 600px;
-    max-width: 800px;
+    min-width: 750px;
+    max-width: 900px;
     min-height: 60vh;
   }
 
@@ -106,7 +106,7 @@ const Input = styled.input`
   height: 50px;
   width: 100%;
   padding: 0 30px 0 30px;
-  margin-bottom: 10px;
+  margin-top: 10px;
   border-radius: 25px;
   background-color: ${theme.color.lightGray};
   border: none;
@@ -119,11 +119,11 @@ const LoginButton = styled.button`
   width: 100%;
   font-size: 1.1rem;
   font-weight: bold;
-  background-color: ${theme.color.gradientStart};
+  background-color: ${theme.color.gradientEnd};
   border-radius: 25px;
   border: none;
   outline: none;
-  margin-top: 20px;
+  margin-top: 30px;
   color: white;
   transition: background-color 0.3s ease;
   
