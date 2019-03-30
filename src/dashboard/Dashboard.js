@@ -71,11 +71,11 @@ class Dashboard extends Component {
 
   render() {
     const { employees, events } = this.state;
-    const [first, second, third, ...restOfTheEmployees]=employees;
+    const [first, second, third, ...restOfTheEmployees] = employees;
 
     return (
       <ViewWrapper>
-        <NavigationBar userIcon={this.props.userIcon}/>
+        <NavigationBar user={this.props.user}/>
         <DashboardWrapper>
           <ViewContentWrapper>
             <ViewContent>
