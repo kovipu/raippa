@@ -32,7 +32,7 @@ class EventFeed extends Component {
 }
 
 const EventFeedWrapper = styled.div`
-height: 100%;
+  height: 100%;
 `
 
 const PageTitle = styled.h2`

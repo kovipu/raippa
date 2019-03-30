@@ -4,20 +4,22 @@ import styled from 'styled-components';
 const BodiumView = ({ first, second, third }) => {
   return (
     <BodiumsWrapper>
-      <Bodium user={second} />
-      <Bodium user={first} offset="90px"/>
-      <Bodium user={third} />
+      <Bodium user={second} icon="/medal2.png"/>
+      <Bodium user={first} offset="90px" icon="/medal1.png"/>
+      <Bodium user={third} icon="/medal3.png"/>
     </BodiumsWrapper>
   );
 };
 
-const Bodium = ({ user, offset }) => (
+const Bodium = ({ user, offset, icon }) => (
   <BodiumWrapper offset={offset}>
+    <Medal src={icon} />
     <Banner>
       {user && user.firstName }
     </Banner>
-  <Circle icon={user && user.icon}/>
-</BodiumWrapper>
+    {user && user.points}
+    <Circle icon={user && user.icon}/>
+  </BodiumWrapper>
 )
 
 const BodiumsWrapper = styled.div`
@@ -52,6 +54,14 @@ const Banner = styled.div`
   color: white;
   font-weight: bold;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); 
+
+`;
+
+const Medal = styled.img`
+  width: 30px;
+  height: 30px;
+  z-index: 3;
+  position: inherit;
 
 `;
 
