@@ -5,12 +5,14 @@ import theme from '../theme';
 
 class Login extends Component {
   state = {
-    email: ''
+    email: '',
+    password: ''
   };
 
   handleKeyPress = ev => {
     if (ev.key === 'Enter') {
-      this.props.onLogin(this.state.email);
+      const { email, password } = this.state;
+      this.props.onLogin(email, password);
     }
   };
 
@@ -30,6 +32,7 @@ class Login extends Component {
             <Input type="password"
                    name="password"
                    placeholder="Salasana"
+                   onChange={password => this.setState({ password })}
                    onKeyPress={this.handleKeyPress} />
              <LoginButton onClick={() => this.props.onLogin(this.state.email)}>
                KIRJAUDU
@@ -67,7 +70,7 @@ const LoginBoxWrapper = styled.div`
   background-color: white;
 
   ${theme.breakpoint.sm} {
-    border-radius: 16px;
+    border-radius: 25px;
     flex-direction: row;
     min-width: 600px;
     max-width: 800px;

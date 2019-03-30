@@ -7,13 +7,28 @@ import './App.css';
 
 class App extends Component {
   state = {
-    userEmail: ''
+    userEmail: '',
+    error: null
   };
 
-  handleLogin = (userEmail, history) => {
-    window.sessionStorage.setItem('login', userEmail);
-    this.setState({ userEmail });
-    history.push(`/dashboard/0`); // TODO: Load id from user info
+  handleLogin = async (email, password, history) => {
+    const body = JSON.stringify({ email, password });
+    const response = await fetch ('https://rmarket-backend.herokuapp.com/login', {
+      method: 'POST',
+      body,
+      headers: {
+        'Content-type': 'application/json'
+      }
+    });
+
+    if (!response.ok) {
+      return console.log('Error!')
+    }
+
+    console.log('response:', await response.json());
+    window.sessionStorage.setItem('login', email);
+    this.setState({ userEmail: email });
+    history.push('/');
   };
 
   render() {
@@ -23,7 +38,7 @@ class App extends Component {
       <div className="App">
         <Router>
           <Route path="/" exact render={props => (
-            <Login onLogin={email => this.handleLogin(email, props.history)} />
+            <Login onLogin={(email, password) => this.handleLogin(email, password, props.history)} />
           )} />
           <PrivateRoute path="/dashboard/:shopIdx" exact component={Dashboard} isAuthenticated={isAuthenticated} />
         </Router>
