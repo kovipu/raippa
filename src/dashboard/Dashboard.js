@@ -75,7 +75,7 @@ class Dashboard extends Component {
 
     return (
       <ViewWrapper>
-        <NavigationBar/>
+        <NavigationBar userIcon={this.props.userIcon}/>
         <DashboardWrapper>
           <ViewContentWrapper>
             <ViewContent>
@@ -101,12 +101,16 @@ class Dashboard extends Component {
   }
 }
 
-const ViewWrapper = styled.div``;
+const ViewWrapper = styled.div`
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+`;
 
 const DashboardWrapper = styled.div`
   display: flex;
-  height: 100vh;
   overflow: hidden;
+  height: 100%;
 `;
 
 const ViewContentWrapper = styled.div`
