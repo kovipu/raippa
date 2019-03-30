@@ -42,7 +42,11 @@ const Navigation = styled.div`
 `;
 
 const Logo = styled.img`
-  height: 50px;
+  height: 30px;
+  
+  ${theme.breakpoint.sm} {
+    height: 50px;
+  }
 `;
 
 const UserWrapper = styled.div`
@@ -55,12 +59,16 @@ const UserWrapper = styled.div`
 `;
 
 const TextWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
+  display: none;
+  
+  ${theme.breakpoint.sm} {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 const Name = styled.div`
-  font-size: 1.3em
+  font-size: 1em
 `;
 
 const Store = styled.div`
