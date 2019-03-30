@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import openSocket from 'socket.io-client';
 import FlipMove from 'react-flip-move';
 import EventFlow from './EventFlow';
+import Bodium from './Bodium';
 let socket;
 
 class Dashboard extends Component {
@@ -62,6 +63,7 @@ class Dashboard extends Component {
       <DashboardWrapper>
         <ViewContent>
           <PageTitle>Tilastot</PageTitle>
+          <Bodium/>
           <FlipMove>
             {employees.map((e, i) => (
               <RankingWrapper key={e.idx}>

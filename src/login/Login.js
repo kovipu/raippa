@@ -8,6 +8,12 @@ class Login extends Component {
     email: ''
   };
 
+  handleKeyPress = ev => {
+    if (ev.key === 'Enter') {
+      this.props.onLogin(this.state.email);
+    }
+  };
+
   render() {
     return (
       <LoginViewWrapper>
@@ -19,10 +25,12 @@ class Login extends Component {
             <Input type="text"
                    name="email"
                    placeholder="Sähköpostiosoite"
-                   onChange={email => this.setState({ email })} />
+                   onChange={email => this.setState({ email })}
+                   onKeyPress={this.handleKeyPress} />
             <Input type="password"
                    name="password"
-                   placeholder="Salasana"/>
+                   placeholder="Salasana"
+                   onKeyPress={this.handleKeyPress} />
              <LoginButton onClick={() => this.props.onLogin(this.state.email)}>
                KIRJAUDU
              </LoginButton>
@@ -43,7 +51,7 @@ const LoginViewWrapper = styled.div`
   justify-content: center;
   align-items: center;
   
-  ${theme.breakpoint.md} {
+  ${theme.breakpoint.sm} {
     padding-top: 0;
   }
 `;
@@ -58,10 +66,11 @@ const LoginBoxWrapper = styled.div`
   min-width: 100vw;
   background-color: white;
 
-  ${theme.breakpoint.md} {
+  ${theme.breakpoint.sm} {
     border-radius: 16px;
     flex-direction: row;
-    min-width: 60vw;
+    min-width: 600px;
+    max-width: 800px;
     min-height: 60vh;
   }
 
@@ -74,7 +83,7 @@ const LoginFormWrapper = styled.div`
   width: 100%;
   max-width: 300px;
 
-  ${theme.breakpoint.md} {
+  ${theme.breakpoint.sm} {
     margin: 30px;
     width: 300px;
   }
@@ -84,7 +93,7 @@ const Logo = styled.img`
   width: 250px;
   height: 250px;
 
-  ${theme.breakpoint.md} {
+  ${theme.breakpoint.sm} {
     margin: 30px;
   }
 `;
